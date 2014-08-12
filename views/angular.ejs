@@ -1,0 +1,67 @@
+<html>
+<head>
+	<title>FUN WITH ANGULAR!</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.21/angular.min.js"></script>
+	<script type="text/javascript">
+		//only one module per page sayeth the Angular Gods
+		var app = angular.module('myApp', []);
+		//I can give data to my scopes by making factories.
+		//factories are singleton functions, no matter how many times I call the factory, it will always reference the same factory.  
+		app.factory('libFactory', function($http){
+			
+			console.log($http);
+			var factory = {}
+			factory.libs = [
+				{name: 'Jquery', desc: "everyone's favorite JS library"},
+				{name: 'underscore', desc: "the JS library with the worst documentation ever"},
+				{name: 'ember', desc: "cool name"}, 
+				{name: 'Angular', desc: "one of the nicer things google has done in awhile"}
+			];
+
+			factory.addLib = function(){}
+			return factory
+		})  
+		app.controller('libsController', function($scope, libFactory, $http){
+			$http
+
+			$scope.libs = libFactory.libs
+
+			$scope.addLib = function(){
+				$scope.libs.push($scope.newLib)
+				$scope.newLib = ''
+			}
+
+			$scope.delLib = function($index){
+				//the splice function deletes starting at the index of the first input and removes the number of items
+				//matching the second input
+				$scope.libs.splice($index, 1)
+				//if I wanted to make an HTTP request, it would look kind of like this:
+			}
+
+			$scope.request = function(){
+				$http.post("/http", {message: "RIP Robin Williams :("}).success(function(data){
+					console.log(data)
+				})
+			}
+		})
+	</script>
+</head>
+<body ng-app='myApp'>
+	<div ng-controller='libsController'>
+		<h1>Your name is: {{ name }}</h1>
+		<h2>Your name is {{ name.length }} characters</h2>
+		<input type='text' ng-model='name'>
+		<div>
+			<h2>Here are all of the amazing front end js tools you must learn!</h2>
+			<ul>
+				<li ng-repeat="lib in libs track by $index">name: {{lib.name}} desc: {{lib.desc}}<a href="#" ng-click='delLib($index)'>X</a></li>
+			</ul>
+			Name:<input type='text' ng-model='newLib.name'>
+			Description: <input type='text' ng-model='newLib.desc'>
+			<button ng-click='addLib()'>click me to add a new Front End Library because there aren't enough already</button>
+		</div>
+		<button ng-click='request()'>MAKE AN HTTP REQUEST!</button>
+	</div>
+	
+</body>
+</html>

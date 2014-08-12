@@ -7,8 +7,33 @@
   <body>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    <div class='ilb'>
+    	 <img src="http://blogs.mtlakes.org/weirdanimals/files/2014/01/Narwhal3.jpgde5cc6d8-5985-4214-b9dd-36d7af50965aLarge.jpg">
+    </div>
+    <div class='ilb'>
+    	<table>
+    		<thead>
+    			<th>First Name</th>
+    			<th>Last Name</th>
+    			<th>Age</th>
+    			<th>Action</th>
+    			<th>Edit</th>
+    		</thead>
+    		<tbody>
+    			<% for(var x in gnarwals){ %>
+    				<tr>
+    					<td> <%= gnarwals[x].first_name %> </td>
+    					<td> <%= gnarwals[x].last_name %> </td>
+    					<td> <%= gnarwals[x].age %></td>
+    					<td><a href="/gnarwals/destroy/<%= gnarwals[x]._id %>">POACH (via HARPOON)</a></td>
+    					<td><a href="/gnarwals/edit/<%= gnarwals[x]._id %>">Edit</a></td>
+    				</tr>
+    			<% } %>
+    		</tbody>
+    	</table>
+    </div>
     <h2>Let's make a new Gnarwal!</h2>
-    <form action='gnarwals/new' method='post'>
+    <form action='/gnarwals/new' method='post'>
     	First Name: <input type='text' name='first_name'>
     	Last Name: <input type='text' name='last_name'>
     	Age: <input type='number' name='age'>

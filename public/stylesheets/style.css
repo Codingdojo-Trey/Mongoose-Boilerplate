@@ -6,3 +6,9 @@ body {
 a {
   color: #00B7FF;
 }
+
+.ilb
+{
+	display: inline-block;
+	width: 49%;
+}
